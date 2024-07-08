@@ -42,4 +42,3 @@ python main.py <link> --store <store-id> --delay <seconds>
 - **Houston**, TX, store 155
 - **Dallas**, TX, store 131
 - **Fairfax**, VA, store 081
-- **Shippable Items**
