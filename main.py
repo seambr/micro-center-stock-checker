@@ -131,7 +131,7 @@ if __name__ == "__main__":
     parser.add_argument("link",type=str,help="The link to the MicroCenter product.")
     # parser.add_argument("-v","--verbose",action="store_true",help="More verbose output.")
     parser.add_argument("--delay",type=int,default=3600,help="The time between updates (in seconds). Default:3600")
-    parser.add_argument("--store",type=int,default=100,help="The store number, found in cookies in browser")
+    parser.add_argument("--store",type=str,default=100,help="The store number, found in cookies in browser")
     args : Args = parser.parse_args()
     
     
