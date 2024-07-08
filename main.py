@@ -5,6 +5,7 @@ from dataclasses import dataclass
 import re
 import time
 from pprint import pprint
+import os
 
 @dataclass
 class Args:
@@ -56,12 +57,13 @@ def get_stock_result(stock_text) -> StockResult:
 def send_email(subject, body):
     import smtplib
     from email.mime.text import MIMEText
-    import dotenv
+    from dotenv import load_dotenv
 
-    values = dotenv.dotenv_values(".env")
-    sender = values["SENDER"] # Email to Send From
-    password = values["APP_PASSWORD"] # Google App Password
-    recipient = values["RECIPIENT"] 
+    load_dotenv()
+
+    sender = os.getenv("SENDER") # Email to Send From
+    password = os.getenv("APP_PASSWORD") # Google App Password
+    recipient = os.getenv("RECIPIENT")
 
     
     msg = MIMEText(body)

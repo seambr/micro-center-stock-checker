@@ -1,0 +1,4 @@
+requests
+beautifulsoup4
+argparse
+dataclasses; python_version < "3.7"
