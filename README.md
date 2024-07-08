@@ -14,7 +14,7 @@ or
 ```bash
 
 docker build -t microcenter-stock-check .
-docker run -e SENDER=<SENDER-EMAIL> -e RECIPIENT=<RECIPIENT-EMAIL> -e LINK=<ITEM-LINK> microcenter-stock-check
+docker run -e SENDER=<SENDER-EMAIL> -e RECIPIENT=<RECIPIENT-EMAIL> -e LINK=<ITEM-LINK> -e STORE=<STORE-ID> microcenter-stock-check
 
 ```
 
