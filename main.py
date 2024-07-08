@@ -53,8 +53,42 @@ def get_stock_result(stock_text) -> StockResult:
     
     return result
 
+def send_email(subject, body):
+    import smtplib
+    from email.mime.text import MIMEText
+    import dotenv
+
+    values = dotenv.dotenv_values(".env")
+    sender = values["SENDER"] # Email to Send From
+    password = values["APP_PASSWORD"] # Google App Password
+    recipient = values["RECIPIENT"] 
+
+    
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = sender
+    msg['To'] = recipient
+    
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
+            smtp_server.login(sender, password)
+            smtp_server.sendmail(sender, recipient, msg.as_string())
+
+        print("Email sent successfully!")
+
+    except smtplib.SMTPAuthenticationError:
+        print("SMTP Authentication Error: The server didn't accept the username/password combination.")
+    except smtplib.SMTPServerDisconnected:
+        print("SMTP Server Disconnected: The server unexpectedly disconnected.")
+    except smtplib.SMTPException as e:
+        print(f"SMTP error occurred: {str(e)}")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+    
+    
 
 def main(link:str, delay:int,store_number:int):
+    EMAIL_SUBJECT = "MicroCenter Stock Alert"
     i = 0
     while True:
         print(F"Iteration {i}")
@@ -65,12 +99,17 @@ def main(link:str, delay:int,store_number:int):
                 html_doc = response.text
                 soup = Soup(html_doc,'html.parser')
 
+                item_name = soup.select_one("div.product-header").text.strip()
+                img_src = soup.select_one("img.productImageZoom").get("src")
                 stock_text = soup.select_one(Selectors.order[0]).text.strip()
 
 
                 stock_result = get_stock_result(stock_text)
-
-                pprint(stock_result)
+                
+                if stock_result.in_stock:
+                    send_email(EMAIL_SUBJECT,F"""{item_name} in stock @ {stock_result.location}
+                               URL: {link}""")
+                    break
             else:
                 raise Exception("Non ok response.")
         except Exception as error:
