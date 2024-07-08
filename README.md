@@ -10,6 +10,13 @@ RECIPIENT = ...
 python main.py <link> --store <store-id> --delay <seconds>
 # default delay: 3600sec
 ```
+or
+```bash
+
+docker build -t microcenter-stock-check .
+docker run -e SENDER=<SENDER-EMAIL> -e RECIPIENT=<RECIPIENT-EMAIL> -e LINK=<ITEM-LINK> microcenter-stock-check
+
+```
 
 ## Store Ids
 
