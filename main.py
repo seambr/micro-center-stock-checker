@@ -57,9 +57,9 @@ def get_stock_result(stock_text) -> StockResult:
 def send_email(subject, body):
     import smtplib
     from email.mime.text import MIMEText
-    from dotenv import load_dotenv
+    # from dotenv import load_dotenv
 
-    load_dotenv()
+    # load_dotenv()
 
     sender = os.getenv("SENDER") # Email to Send From
     password = os.getenv("APP_PASSWORD") # Google App Password
@@ -133,6 +133,8 @@ if __name__ == "__main__":
     parser.add_argument("--delay",type=int,default=3600,help="The time between updates (in seconds). Default:3600")
     parser.add_argument("--store",type=str,default=100,help="The store number, found in cookies in browser")
     args : Args = parser.parse_args()
+
+    print(args.link)
     
     
     main(args.link,args.delay,args.store)

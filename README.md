@@ -1,5 +1,5 @@
 ## Setup
-Add a .env file with the following format for STMP Authentication
+Add a enviornment variables for STMP Authentication
 ```dotenv
 APP_PASSWORD = ...
 SENDER = ...
